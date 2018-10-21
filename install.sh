@@ -33,7 +33,7 @@ if [ $(whoami) != "root" ] && [ ! -e ".installed" ]; then
 
     # finally, create the `.installed` file
     touch .installed
-done
+fi
 
 
 
@@ -46,15 +46,16 @@ shopt -s dotglob
 
 datetime=$(date +"%Y-%m-%d-%H.%M.%S")
 
-for dotfile in thefiles/*; do
+cd thefiles
+for dotfile in *; do
     # if the file already exists in the home directory, then move it to the backup directory
     if [ -e "~/${dotfile}" ]; then
-        mkdir -p backups/${datetime}
-        mv ~/${dotfile} backups/${datetime}/
+        mkdir -p ../backups/${datetime}
+        mv ~/${dotfile} ../backups/${datetime}/
     fi
 
     ln -s ~/.dotfiles/thefiles/${dotfile} ~/${dotfile}
-    echo "  > Done linking ${dotfile#\.}"
+    echo "  > Done linking ${dotfile}"
 done
 
 if [ -e backups/${datetime} ]; then
