@@ -24,3 +24,6 @@
 	verbosity = 1
 	tool = vimdiff
 	conflictstyle = diff3
+
+[diff]
+    tool = vimdiff
