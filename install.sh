@@ -28,7 +28,7 @@ if [ $(whoami) != "root" ] && [ ! -e ".installed" ]; then
     # clone the dotfiles repo
     echo "Cloning the Dotfiles-Pi repo into ~/.dotfiles ..."
     cd ~
-    git clone https://github.com/shanecb/Dotfiles-Pi.git .dotfiles >/dev/null
+    git clone --recursive https://github.com/shanecb/Dotfiles-Pi.git .dotfiles >/dev/null
     cd .dotfiles
 
     # finally, create the `.installed` file
@@ -52,6 +52,7 @@ for dotfile in *; do
     if [ -e "~/${dotfile}" ]; then
         mkdir -p ../backups/${datetime}
         mv ~/${dotfile} ../backups/${datetime}/
+        unlink ~/${dotfile}
     fi
 
     ln -s ~/.dotfiles/thefiles/${dotfile} ~/${dotfile}
