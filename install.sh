@@ -23,7 +23,6 @@ if [ $(whoami) != "root" ] && [ ! -e ".installed" ]; then
     sudo apt-get install libsecret-1-0 libsecret-1-dev
     cd /usr/share/doc/git/contrib/credential/libsecret
     sudo make
-    git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 
     # clone the dotfiles repo
     echo "Cloning the Dotfiles-Pi repo into ~/.dotfiles ..."
@@ -49,10 +48,11 @@ datetime=$(date +"%Y-%m-%d-%H.%M.%S")
 cd thefiles
 for dotfile in *; do
     # if the file already exists in the home directory, then move it to the backup directory
-    if [ -e "~/${dotfile}" ]; then
+    if [ -e ~/${dotfile} ]; then
         mkdir -p ../backups/${datetime}
-        mv ~/${dotfile} ../backups/${datetime}/
-        unlink ~/${dotfile}
+        cp -rL ~/${dotfile} ../backups/${datetime}/
+        rm -rf ~/${dotfile}
+        unlink ~/${dotfile} 2>/dev/null
     fi
 
     ln -s ~/.dotfiles/thefiles/${dotfile} ~/${dotfile}

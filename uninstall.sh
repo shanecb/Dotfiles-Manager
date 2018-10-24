@@ -11,14 +11,14 @@ datetime=$(date +"%Y-%m-%d-%H.%M.%S")
 cd thefiles
 for dotfile in *; do
     # if the file already exists in the home directory, then move it to the backup directory
-    if [ -e "~/${dotfile}" ]; then
+    if [ -e ~/${dotfile} ]; then
         mkdir -p ../backups/${datetime}
-        mv ~/${dotfile} ../backups/${datetime}/
-        unlink ~/${dotfile}
-        rm ~/${dotfile}
+        cp -rL ~/${dotfile} ../backups/${datetime}/
+        rm -rf ~/${dotfile}
+        unlink ~/${dotfile} 2>/dev/null
+        echo "  > Done uninstalling ${dotfile}"
     fi
 
-    echo "  > Done uninstalling ${dotfile}"
 done
 
 if [ -e backups/${datetime} ]; then
