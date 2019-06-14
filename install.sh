@@ -19,6 +19,10 @@ if [ $(whoami) != "root" ] && [ ! -e ".installed" ]; then
     # change the login shell to zsh
     chsh -s $(which zsh)
 
+    # install virtualenv and virtualenvwrapper
+    sudo pip3 install virtualenv
+    sudo pip3 install virtualenvwrapper
+
     # install and configure libsecret for managing git credentials
     sudo apt-get install libsecret-1-0 libsecret-1-dev
     cd /usr/share/doc/git/contrib/credential/libsecret
