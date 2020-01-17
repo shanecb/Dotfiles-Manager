@@ -40,13 +40,6 @@ if [ $(whoami) != "root" ] && [ ! -e ".installed" ]; then
     sudo pip3 install virtualenv
     sudo pip3 install virtualenvwrapper
 
-    # install and configure libsecret for managing git credentials
-    echo "Installing and configuring libsecret (for managing git credentials) ..."
-    sudo apt install libsecret-1-0 libsecret-1-dev
-    cd /usr/share/doc/git/contrib/credential/libsecret
-    sudo make clean
-    sudo make
-
     # clone the dotfiles repo
 
     cd ~

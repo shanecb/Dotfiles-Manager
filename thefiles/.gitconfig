@@ -2,9 +2,6 @@
 	name = Shane Bielefeld
 	email = shanebielefeld@gmail.com
 
-[credential]
-	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
-
 [alias]
 	# add
 	a = add
