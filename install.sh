@@ -61,8 +61,8 @@ if [ $(whoami) != "root" ] && [ ! -e ".installed" ]; then
     cd ~
 
     if [ ! -e ".dotfiles" ]; then
-        echo "Cloning the Dotfiles-Pi repo into ~/.dotfiles ..."
-        git clone --recursive https://github.com/shanecb/Dotfiles-Pi.git .dotfiles >/dev/null
+        echo "Cloning the Dotfiles-Manager repo into ~/.dotfiles ..."
+        git clone --recursive https://github.com/shanecb/Dotfiles-Manager.git .dotfiles >/dev/null
     fi
 
     cd .dotfiles
