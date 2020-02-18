@@ -11,6 +11,22 @@
 
 
 ################################################################################
+## Helpers
+################################################################################
+
+prompt_confirm() {
+    while true; do
+        read -r -p "${1:-Continue?} [Y/n]: " response
+        response=$(echo "$response" | awk '{print tolower($0)}')
+        case $response in
+            yes | y | "") echo true ; return 0 ;;
+            no | n) echo false ; return 1 ;;
+            *) printf " \033[31m %s \n\033[0m" "Please answer yes or no.";;
+        esac
+    done
+}
+
+################################################################################
 ## Install packages
 ################################################################################
 
@@ -89,5 +105,15 @@ done
 if [ -e backups/${datetime} ]; then
     echo "`expr $(\ls -afq thefiles | wc -l) - 2` files backed up to ~/dotfiles/backups/${datetime}"
 fi
+
+# add ssh key
+while $(prompt_confirm "Would you like to add a key to your ssh authorized_keys file?"); do
+    mkdir -p ~/.ssh
+    read -r -p "Please enter the public key you'd like to add to the authorized_keys file: " key
+    case $key in
+        "") echo "No input given, try again." ;;
+        *) echo "Appending key to authorized keys ..." ; echo "$key" >> ~/.ssh/authorized_keys ; break ;;
+    esac
+done
 
 echo "All done!"
